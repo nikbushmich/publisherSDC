@@ -12,6 +12,7 @@ services:
 #        - INSTALL_XDEBUG=${INSTALL_XDEBUG}
 
     volumes:
+#      - /var/www/vendor/
       - ./../:/var/www/
 
   nginx:
