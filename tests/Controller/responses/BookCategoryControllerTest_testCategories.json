@@ -1,14 +1,15 @@
-{
-  "items":[
-    {
-    "id":1,
-    "title":"title 1",
-    "slug":"slug-1"
-  },
-    {
-      "id":2,
-      "title":"title 2",
-      "slug":"slug-2"
-    }
-  ]
+{"items":
+  [{
+    "id":5,
+    "title":"title_1",
+    "slug":"slug_1"
+  },{
+    "id":6,
+    "title":"title_2",
+    "slug":"slug_2"
+  },{
+    "id":7,
+    "title":"title_3",
+    "slug":"slug_3"
+  }]
 }
