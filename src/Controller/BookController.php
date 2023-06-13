@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Exception\BookCategoryNotFoundException;
-use OpenApi\Attributes as OA;
 use App\Model\BookListResponse;
 use App\Service\BookService;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;

@@ -11,7 +11,7 @@ use App\Model\BookListResponse;
 use App\Repository\BookCategoryRepository;
 use App\Repository\BookRepository;
 
-class BookService
+class BookService implements BookServiceInterface
 {
     public function __construct(private readonly BookRepository $bookRepository, private readonly BookCategoryRepository $bookCategoryRepository)
     {
@@ -19,8 +19,7 @@ class BookService
 
     public function getBooksByCategory(int $categoryId): BookListResponse
     {
-        $category = $this->bookCategoryRepository->find($categoryId);
-        if (null ===$category) {
+        if (!$this->bookCategoryRepository->existsById($categoryId)) {
             throw new BookCategoryNotFoundException();
         }
 

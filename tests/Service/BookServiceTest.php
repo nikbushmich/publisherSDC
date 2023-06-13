@@ -10,15 +10,14 @@ use App\Model\BookListResponse;
 use App\Repository\BookCategoryRepository;
 use App\Repository\BookRepository;
 use App\Service\BookService;
-use DateTime;
+use App\Tests\AbstractTestCase;
 use Doctrine\Common\Collections\ArrayCollection;
-use PHPUnit\Framework\TestCase;
 
-class BookServiceTest extends TestCase
+class BookServiceTest extends AbstractTestCase
 {
     public function testGetBooksByCategoryNotFound()
     {
-        $bookRepository = $this->createMock( BookRepository::class);
+        $bookRepository = $this->createMock(BookRepository::class);
         $bookCategoryRepository = $this->createMock(BookCategoryRepository::class);
         $bookCategoryRepository->expects($this->once())
             ->method('find')
@@ -52,15 +51,18 @@ class BookServiceTest extends TestCase
 
     private function createBookEntity(): Book
     {
-        return (new Book())
-            ->setId(123)
+        $book = (new Book())
             ->setTitle('test title')
             ->setSlug('test_slug')
             ->setMeap(false)
             ->setAuthors(['test author'])
             ->setImage('http://localhost/testimage.png')
             ->setCategories(new ArrayCollection())
-            ->setPublicationDate(new DateTime('2023-06-05'));
+            ->setPublicationDate(new \DateTime('2023-06-05'));
+
+        $this->setEntityId($book, 123);
+
+        return $book;
     }
 
     private function createBookItemModel(): BookListItem

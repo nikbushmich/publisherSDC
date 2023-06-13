@@ -26,5 +26,4 @@ class BookCategoryListResponse
     {
         return $this->items;
     }
-
 }

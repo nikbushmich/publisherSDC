@@ -6,17 +6,16 @@ use App\Entity\BookCategory;
 use App\Model\BookCategoryListItem;
 use App\Model\BookCategoryListResponse;
 use App\Repository\BookCategoryRepository;
-use Doctrine\Common\Collections\Criteria;
 
-class BookCategoryService
+class BookCategoryService implements BookCategoryServiceInterface
 {
-    public function __construct(private BookCategoryRepository $bookCategoryRepository)
+    public function __construct(private readonly BookCategoryRepository $bookCategoryRepository)
     {
     }
 
     public function getCategories(): BookCategoryListResponse
     {
-        $categories = $this->bookCategoryRepository->findBy([], ['title' => Criteria::ASC]);
+        $categories = $this->bookCategoryRepository->findAllSortedByTitle();
         $items = array_map(
             fn (BookCategory $bookCategory) => new BookCategoryListItem(
                 $bookCategory->getId(), $bookCategory->getTitle(), $bookCategory->getSlug()
