@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\BookCategoryListResponse;
-use App\Service\BookCategoryService;
+use App\Service\BookCategoryServiceInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BookCategoryController extends AbstractController
 {
-    public function __construct(private readonly BookCategoryService $bookCategoryService)
+    public function __construct(private readonly BookCategoryServiceInterface $bookCategoryService)
     {
     }
 
