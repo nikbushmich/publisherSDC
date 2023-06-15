@@ -26,6 +26,7 @@ class BookCategoryController extends AbstractController
     )]
     public function categories(): Response
     {
+//         throw new \RuntimeException('test exceptions');
         return $this->json($this->bookCategoryService->getCategories());
     }
 }
