@@ -52,7 +52,7 @@ class BookControllerTest extends AbstractControllerTest
 
         $this->em->persist((new Book())
             ->setTitle('Name book test1')
-            ->setPublicationDate(new \DateTime())
+            ->setPublicationDate(new \DateTimeImmutable())
             ->setMeap(false)
             ->setAuthors(['Name Author test1'])
             ->setSlug('test1_slug')

@@ -58,7 +58,7 @@ class BookServiceTest extends AbstractTestCase
             ->setAuthors(['test author'])
             ->setImage('http://localhost/testimage.png')
             ->setCategories(new ArrayCollection())
-            ->setPublicationDate(new \DateTime('2023-06-05'));
+            ->setPublicationDate(new \DateTimeImmutable('2023-06-05'));
 
         $this->setEntityId($book, 123);
 
