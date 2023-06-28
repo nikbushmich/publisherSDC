@@ -26,6 +26,12 @@ class Book
     #[ORM\Column(type: 'string', length: 255)]
     private string $image;
 
+    #[ORM\Column(type: 'string', length: 13)]
+    private string $isbn;
+
+    #[ORM\Column(type: 'text')]
+    private string $description;
+
     #[ORM\Column(type: 'simple_array')]
     private array $authors;
 
@@ -39,7 +45,14 @@ class Book
      * @return Collection<BookCategory>
      */
     #[ORM\ManyToMany(targetEntity: BookCategory::class)]
+    #[ORM\JoinTable(name: 'book_to_book_category')]
     private Collection $categories;
+
+    /**
+     * @return Collection<BookToBookFormat>
+     */
+    #[ORM\OneToMany(targetEntity: BookToBookFormat::class)]
+    private Collection $formats;
 
     public function __construct()
     {
@@ -123,6 +136,30 @@ class Book
         return $this;
     }
 
+    public function getIsbn(): string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(string $isbn): self
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     /**
      * @return Collection<BookCategory>
      */
@@ -133,12 +170,23 @@ class Book
 
     /**
      * @param Collection<BookCategory> $categories
-     *
      * @return $this
      */
     public function setCategories(Collection $categories): self
     {
         $this->categories = $categories;
+
+        return $this;
+    }
+
+    public function getFormats(): Collection
+    {
+        return $this->formats;
+    }
+
+    public function setFormats(Collection $formats): self
+    {
+        $this->formats = $formats;
 
         return $this;
     }
