@@ -29,6 +29,10 @@ class BookService implements BookServiceInterface
         ));
     }
 
+    private function getBookById()
+    {
+    }
+
     private function map(Book $book): BookListItem
     {
         return (new BookListItem())
