@@ -51,19 +51,19 @@ class Book
     /**
      * @return Collection<BookToBookFormat>
      */
-    #[ORM\OneToMany(mappedBy: 'book',targetEntity: BookToBookFormat::class)]
+    #[ORM\OneToMany(mappedBy: 'book', targetEntity: BookToBookFormat::class)]
     private Collection $formats;
 
     /**
      * @return Collection<Review>
      */
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Review::class)]
-    private Review $reviews;
+    private Collection $reviews;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-        $this->formats = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int

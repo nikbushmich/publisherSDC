@@ -54,6 +54,8 @@ class BookControllerTest extends AbstractControllerTest
             ->setTitle('Name book test1')
             ->setPublicationDate(new \DateTimeImmutable())
             ->setMeap(false)
+            ->setIsbn('123321')
+            ->setDescription('test description')
             ->setAuthors(['Name Author test1'])
             ->setSlug('test1_slug')
             ->setCategories(new ArrayCollection([$bookCategory]))

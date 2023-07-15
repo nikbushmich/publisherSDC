@@ -19,8 +19,10 @@ class BookFixtures extends Fixture implements DependentFixtureInterface
 
         $book = (new Book())
             ->setTitle('Name book test1')
-            ->setPublicationDate(new \DateTime('2023-06-02'))
+            ->setPublicationDate(new \DateTimeImmutable('2023-06-02'))
             ->setMeap(false)
+            ->setIsbn('123321')
+            ->setDescription('test description')
             ->setAuthors(['Name Author test1'])
             ->setSlug('test1_slug')
             ->setCategories(new ArrayCollection([$test1Category, $test2Category]))

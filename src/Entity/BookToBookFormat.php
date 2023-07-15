@@ -70,12 +70,12 @@ class BookToBookFormat
         return $this;
     }
 
-    public function getBookFormat(): BookFormat
+    public function getFormat(): BookFormat
     {
         return $this->bookFormat;
     }
 
-    public function setBookFormat(BookFormat $bookFormat): self
+    public function setFormat(BookFormat $bookFormat): self
     {
         $this->bookFormat = $bookFormat;
 
