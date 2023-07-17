@@ -8,6 +8,7 @@ use App\Entity\Book;
 use App\Entity\BookCategory;
 use App\Entity\BookToBookFormat;
 use App\Exception\BookCategoryNotFoundException;
+use App\Mapper\BookMapper;
 use App\Model\BookCategory as BookCategoryModel;
 use App\Model\BookDetails;
 use App\Model\BookFormat;
@@ -24,6 +25,7 @@ class BookService implements BookServiceInterface
         private readonly BookRepository $bookRepository,
         private readonly BookCategoryRepository $bookCategoryRepository,
         private readonly ReviewRepository $reviewRepository,
+        private readonly RatingServiceInterface $ratingService,
     ) {
     }
 
@@ -34,7 +36,7 @@ class BookService implements BookServiceInterface
         }
 
         return new BookListResponse(array_map(
-            [$this, 'map'],
+            static fn (Book $book) => BookMapper::map($book, new BookListItem()),
             $this->bookRepository->findBooksByCategoryId($categoryId)
         ));
     }
@@ -43,11 +45,6 @@ class BookService implements BookServiceInterface
     {
         $book = $this->bookRepository->getById($id);
         $reviews = $this->reviewRepository->countByBookId($id);
-        $rating = 0;
-
-        if ($reviews > 0) {
-            $rating = $this->reviewRepository->getBookTotalRatingSum($id) / $reviews;
-        }
 
         $categories = $book->getCategories()
             ->map(
@@ -55,15 +52,8 @@ class BookService implements BookServiceInterface
                     $bookCategory->getId(), $bookCategory->getTitle(), $bookCategory->getSlug()
                 ));
 
-        return (new BookDetails())
-            ->setId($book->getId())
-            ->setTitle($book->getTitle())
-            ->setSlug($book->getSlug())
-            ->setImage($book->getImage())
-            ->setAuthors($book->getAuthors())
-            ->setMeap($book->isMeap())
-            ->setPublicationDate($book->getPublicationDate()->getTimestamp())
-            ->setRating($rating)
+        return BookMapper::map($book, new BookDetails())
+            ->setRating($this->ratingService->calcReviewRatingForBook($id, $reviews))
             ->setReviews($reviews)
             ->setFormats($this->mapFormats($book->getFormats()))
             ->setCategories($categories->toArray());
